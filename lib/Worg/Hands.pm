@@ -13,9 +13,6 @@ package Hands {
             } elsif ($switch =~ /^(m|memo)$/) {
                 memo();
                 print "$msg";
-            } elsif ($switch =~ /^(t|task)$/) {
-                task();
-                print "$msg";
             } elsif ($switch =~ /^(q|quit)$/) {
                 last;
             } else {
@@ -24,7 +21,7 @@ package Hands {
         }
     }
     sub view {
-        open my $fh, '<', 'data/work.md' or die $!;
+        open my $fh, '<', 'data/bucket.md' or die $!;
         while (my $eyes = <$fh>) {
             next if $. == 1;
             print "$eyes";
