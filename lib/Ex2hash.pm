@@ -5,7 +5,7 @@ use warnings;
 package Ex2hash {
     sub run {
         my @port;
-        open my $fh, '<', 'data/note.md' or die $!;
+        open my $fh, '<', 'data/in.md' or die $!;
         for my $in (<$fh>) {
             if ($in =~ /^([^\t]+)\t(.+)$/) {
                 push @port, "  \"$1\": \"$2\"\n";
@@ -13,7 +13,7 @@ package Ex2hash {
         }
         close $fh;
 
-        open my $fh_out, '>', 'data/bucket.md' or die $!;
+        open my $fh_out, '>', 'data/out.md' or die $!;
         print $fh_out "{\n";
         print $fh_out '  "0": "0"',"\n";
         for my $line (@port) {

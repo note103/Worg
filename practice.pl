@@ -11,9 +11,9 @@ use Worg::Hands;
 use Date;
 use Ex2hash;
 
-my $msg = "Input 'p' or 'c' or 'd' or 'e' or 'h'.\n";
+my $msg = "Input (p|c|d|e|h|q).\n";
 print "$msg";
-my $again = "\nAnything else? \n$msg";
+my $again = "\nAnything else?\n$msg";
 my $bar;
 while (my $in = <>) {
     if ($in =~ /^(c|p)$/) {
@@ -44,16 +44,11 @@ while (my $in = <>) {
 }
 
 sub out {
-    open my $fh, '>>', 'data/bucket.md' or die $!;
-    print $fh "\n-->>\n";
+    open my $fh, '>', 'data/out.md' or die $!;
+    print $fh "-->>\n";
     for my $line (@$bar) {
         print $fh "$line";
     }
     print $fh "<<--\n";
     close $fh;
 }
-
-__END__
-
-# TODO
-* タグがカブって抽出されるのを治したい 2014/06/11 01:17

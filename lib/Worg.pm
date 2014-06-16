@@ -7,7 +7,7 @@ use Worg::Tags;
 
 package Worg {
     my @set;
-    open my $fh, '<', 'data/note.md' or die $!;
+    open my $fh, '<', 'data/in.md' or die $!;
     for my $line (<$fh>) {
         push @set, $line;
     }
