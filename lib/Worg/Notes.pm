@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-package Hands {
+package Notes {
     my $msg = "Please input 'v[iew]' or 'm[emo]' or 'q[uit]'.\n";
     my $msg2 = "Please input 'i[n]' or 'o[ut]', 'q[uit]'.\n";
     sub set {

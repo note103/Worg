@@ -7,11 +7,9 @@ use Worg;
 use Worg::Chat;
 use Worg::Pad;
 use Worg::Tags;
-use Worg::Hands;
-use Date;
-use Ex2hash;
+use Worg::Notes;
 
-my $msg = "Input (p|c|d|e|h|q).\n";
+my $msg = "Input (p|c|e|n|q).\n";
 print "$msg";
 my $again = "\nAnything else?\n$msg";
 my $bar;
@@ -26,14 +24,8 @@ while (my $in = <>) {
             out();
             print "$again";
         }
-    } elsif ($in =~ /^(d)$/) {
-        Date::date();
-        print "$again";
-    } elsif ($in =~ /^(e)$/) {
-        Ex2hash::run();
-        print "$again";
-    } elsif ($in =~ /^(h)$/) {
-        Hands::set();
+    } elsif ($in =~ /^(n)$/) {
+        Notes::set();
         print "$again";
     } elsif ($in =~ /^(q)$/) {
         print "Bye bye!\n";
