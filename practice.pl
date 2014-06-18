@@ -9,7 +9,7 @@ use Worg::Pad;
 use Worg::Tags;
 use Worg::Notes;
 
-my $msg = "Input (p|c|e|n|q).\n";
+my $msg = "Input (p|c|n|q).\n";
 print "$msg";
 my $again = "\nAnything else?\n$msg";
 my $bar;
