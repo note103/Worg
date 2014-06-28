@@ -7,40 +7,35 @@ use Worg;
 use Worg::Chat;
 use Worg::Pad;
 use Worg::Tags;
-use Worg::Notes;
 
-my $msg = "Input (p|c|n|q).\n";
-print "$msg";
-my $again = "\nAnything else?\n$msg";
+my $msg = "Input (p[ad]|c[hat]|q[uit]).";
+print "$msg\n";
+my $again = "\nAnything else?\n$msg\n";
 my $bar;
 while (my $in = <>) {
-    if ($in =~ /^(c|p)$/) {
-        if ($1 =~ /^(c)$/) {
+    if ($in =~ /^(p|pad|c|chat)$/) {
+        if ($1 =~ /^(c|chat)$/) {
             $bar = Worg::chat();
-            out();
-            print "$again";
-        } elsif ($1 =~ /^(p)$/) {
+        } elsif ($1 =~ /^(p|pad)$/) {
             $bar = Worg::pad();
-            out();
-            print "$again";
         }
-    } elsif ($in =~ /^(n)$/) {
-        Notes::set();
-        print "$again";
-    } elsif ($in =~ /^(q)$/) {
+        out();
+    } elsif ($in =~ /^(q|quit)$/) {
         print "Bye bye!\n";
         last;
     } else {
         print "\nPlease select correct one.\n"
     }
+    last;
 }
 
 sub out {
-    open my $fh, '>', 'data/out.md' or die $!;
+    open my $fh, '>>', 'data/out.md' or die $!;
     print $fh "-->>\n";
     for my $line (@$bar) {
         print $fh "$line";
     }
     print $fh "<<--\n";
+    print "done!!\n";
     close $fh;
 }

@@ -61,6 +61,7 @@ package Common {
     }
     sub treat {
         my $extract = shift;
+        my $tags_change = Tags::change_tags();
         my @tags_treat;
         for my $extract_tag (@$extract) {
             if ($extract_tag =~ /^([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]+)$/) {
@@ -72,14 +73,16 @@ package Common {
                     my @unique = keys %hash;
                     my (@uqxs,@uqx,@uqn);
                     for my $uq (@unique) {
-                        if ($uq =~ /(notag)/) {
+                        if ($uq =~ /{$tags_change}/) {
                             push @uqxs, $uq;
                         } else {
                             push @uqn, $uq;
                         }
                     }
-                    @uqx = map {Tags::change()->{$_}} @uqxs;
-                    my $uqstr = join ',', @uqn, @uqx;
+                    @uqx = map {Tags::change_words()->{$_}} @uqxs;
+                    my %hash2  = map { $_, 1 } @uqx;
+                    my @unique2 = keys %hash2;
+                    my $uqstr = join ',', @uqn, @unique2;
                     push @tags_treat, "* $2\t[$uqstr]$4";
                 } else {
                     push @tags_treat, "* $2\t$4";

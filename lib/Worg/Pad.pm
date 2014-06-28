@@ -14,7 +14,7 @@ package Pad {
         my $time_local = 'time';
         for my $dhm (@$in) {
             if ($dhm =~ /^\> (.+) (.+)$/) {
-                push @dhmx, "# $1\t$2\n\n";
+                push @dhmx, "\n# $1\t$2\n\n";
             } elsif ($dhm =~ /^(.+)($ymd) ($time)$/) {
                 $time_local = $3;
                 push @dhmx, "$2\t$3\t\t$1\n";
