@@ -1,9 +1,6 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Worg::Chat;
-use Worg::Pad;
-use Worg::Tags;
 
 package Worg {
     my @set;
@@ -17,6 +14,9 @@ package Worg {
     }
     sub pad {
         return Pad::run($set);
+    }
+    sub log {
+        return Log::run($set);
     }
     close $fh;
 
