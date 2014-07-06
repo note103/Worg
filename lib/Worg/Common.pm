@@ -68,21 +68,19 @@ package Common {
                 my $next = $extract_tag;
                 if ($next =~ /^([^\t]*)\t([^\t]*)\t(.+)\t([^\t]+)$/) {
                     my $lcstr = lc($3);
-                    my @arr = split /,/, $lcstr;
-                    my %hash  = map { $_, 1 } @arr;
-                    my @unique = keys %hash;
+                    my @tags_all = split /,/, $lcstr;
                     my (@uqxs,@uqx,@uqn);
-                    for my $uq (@unique) {
-                        if ($uq =~ /{$tags_change}/) {
-                            push @uqxs, $uq;
+                    for my $tags_all (@tags_all) {
+                        if ($tags_all =~ /{$tags_change}/) {
+                            push @uqxs, $tags_all;
                         } else {
-                            push @uqn, $uq;
+                            push @uqn, $tags_all;
                         }
                     }
                     @uqx = map {Tags::change_words()->{$_}} @uqxs;
-                    my %hash2  = map { $_, 1 } @uqx;
-                    my @unique2 = keys %hash2;
-                    my $uqstr = join ',', @uqn, @unique2;
+                    my %hash  = map { $_, 1 } @uqx, @uqn;
+                    my @unique = keys %hash;
+                    my $uqstr = join ',', @unique;
                     push @tags_treat, "* $2\t[$uqstr]$4";
                 } else {
                     push @tags_treat, "* $2\t$4";

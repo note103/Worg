@@ -13,7 +13,7 @@ package Pad {
         my $time = '\d\d?:\d\d?';
         my $time_local = 'time';
         for my $dhm (@$in) {
-            if ($dhm =~ /^\> (.+) (.+)$/) {
+            if ($dhm =~ /^\> (.+) ?(.*)$/) {
                 push @dhmx, "\n# $1\t$2\n\n";
             } elsif ($dhm =~ /^(.+)($ymd) ($time)$/) {
                 $time_local = $3;
