@@ -79,7 +79,7 @@ package Common {
                     }
                     @uqx = map {Tags::change_words()->{$_}} @uqxs;
                     my %hash  = map { $_, 1 } @uqx, @uqn;
-                    my @unique = keys %hash;
+                    my @unique = sort keys %hash;
                     my $uqstr = join ',', @unique;
                     push @tags_treat, "* $2\t[$uqstr]$4";
                 } else {

@@ -15,7 +15,7 @@ package Log {
         for my $dhm (@$in) {
             if ($dhm =~ /^(\# .+)$/) {
                 push @dhmx, "\n$dhm\n";
-            } elsif ($dhm =~ /^\* (\d\d?:\d\d)\t\[(.+)\](.+)$/) {
+            } elsif ($dhm =~ /^\* (\d\d?:\d\d)\t\[([^\]]+)\](.+)$/) {
                 my ($t, $in_tags, $c) = ($1, $2, $3);
                 my $separate_tags;
                 if ($in_tags =~ /^((.+),)+(.+)$/) {
