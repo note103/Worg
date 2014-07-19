@@ -14,7 +14,7 @@ package Log {
         my $time_local = 'time';
         for my $dhm (@$in) {
             if ($dhm =~ /^(\# .+)$/) {
-                push @dhmx, "\n$1\n\n";
+                push @dhmx, "\n$dhm\n";
             } elsif ($dhm =~ /^\* (\d\d?:\d\d)\t\[(.+)\](.+)$/) {
                 my ($t, $in_tags, $c) = ($1, $2, $3);
                 my $separate_tags;
@@ -32,8 +32,10 @@ package Log {
                 push @dhmx, "\t$t\t\t$separate_tags$c\n";
             } elsif ($dhm =~ /^\* (\d\d?:\d\d)\t(.+)$/) {
                 push @dhmx, "\t$1\t\t$2\n";
-            } else {
+            } elsif ($dhm =~ /^$/) {
                 push @dhmx, "";
+            } else {
+                push @dhmx, "$dhm";
             }
         }
         my $extract = Common::core(\@dhmx);

@@ -9,25 +9,24 @@ package Chat {
         my $in = shift;
         my @dhm;
         my $time = '\d\d?:\d\d?';
-        my $user = 'Hiroaki Kadomatsu|note103'; #個別に書き換え
         my $time_local = 'time';
         my $day = '\D+';
         my $num = '\d\d?';
         for my $dhm (@$in) {
-            if ($dhm =~ /^\[($time)\] ($user): (.*)$/) {
+            if ($dhm =~ /^\[($time)\] (.+): (.*)$/) {
                 $time_local = $1;
                 push @dhm, "today\t$1\t\t#mob$3\n";
-            } elsif ($dhm =~ /^\[($time)\] ($user): (.*)$/) {
+            } elsif ($dhm =~ /^\[($time)\] (.+): (.*)$/) {
                 $time_local = $1;
                 push @dhm, "today\t$1\t\t#mob$3\n";
-            } elsif ($dhm =~ /^\[($num)月-($num) ($time)\] ($user): (.*)$/) {
+            } elsif ($dhm =~ /^\[($num)月-($num) ($time)\] (.+): (.*)$/) {
                 $time_local = $3;
                 push @dhm, "$1/$2\t$3\t\t#mob$5\n";
             } elsif ($dhm =~ /^\s+($day)($num)月 ($num), (\d{4})$/) {
                 push @dhm, "$4/$2/$3\t$1\n";
             } elsif ($dhm =~ /\[\[($day)($num)月 ($num), (\d{4})\]\]$/) {
                 push @dhm, "$4/$2/$3\t$1\n";
-            } elsif ($dhm =~ /^\[($num)月-($num) ($time)\] ($user): (.*)$/) {
+            } elsif ($dhm =~ /^\[($num)月-($num) ($time)\] (.+): (.*)$/) {
                 $time_local = $3;
                 push @dhm, "$1/$2\t$3\t\t#mob$5\n";
             } elsif ($dhm =~ /^\s+($num)月-.+($time)$/) {
