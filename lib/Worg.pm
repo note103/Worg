@@ -12,11 +12,14 @@ package Worg {
     sub chat {
         return Chat::run($set);
     }
-    sub pad {
-        return Pad::run($set);
+    sub done {
+        return Done::run($set);
     }
-    sub log {
-        return Log::run($set);
+    sub slack {
+        return Slack::run($set);
+    }
+    sub rewrite {
+        return Rewrite::run($set);
     }
     close $fh;
 

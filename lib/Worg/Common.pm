@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use Worg::Tags;
+use 5.012;
 
 package Common {
     my $tags_common = Tags::tags();
@@ -66,7 +67,7 @@ package Common {
         for my $extract_tag (@$extract) {
             if ($extract_tag =~ /^([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]+)$/) {
                 my $next = $extract_tag;
-                if ($next =~ /^([^\t]*)\t([^\t]*)\t(.+)\t([^\t]+)$/) {
+                if ($next =~ /^([^\t]*)\t([^\t]*)\t([^\t]+)\t([^\t]+)$/) {
                     my $lcstr = lc($3);
                     my @tags_all = split /,/, $lcstr;
                     my (@uqxs,@uqx,@uqn);
@@ -99,11 +100,77 @@ package Common {
                 push @port, "$cut_endwhite";
             }
         }
-        return \@port
+        my @autolink;
+        for my $autolink (@port) {
+            if ($autolink =~ s/([^\<\>"])((http:|https:)[^ \s]+)/$1<a href = "$2" target="_blank">$2<\/a>/g ) {
+                push @autolink, "$autolink";
+            } else {
+                push @autolink, "$autolink";
+            }
+        }
+        my @anchor;
+        for my $anchor (@autolink) {
+            if ($anchor =~ /^(\D*)\# ((\d{4})[\/-](\d\d?)[\/-](\d\d?))(\D*)$/) {
+                push @anchor, "$1\# $3-$4-$5\<a name=\"$2\"\>\<\/a\>$6";
+            } else {
+                push @anchor, "$anchor";
+            }
+        }
+        my @index;
+        for my $index (@anchor) {
+            if ($index =~ /\# (\d{4})[\/-](\d\d?)[\/-](\d\d?)/) {
+                push @index, "[$1/$2/$3](\#$1-$2-$3)<br>\n";
+            } else {
+                push @index, "";
+            }
+        }
+
+        my @reindex = reverse @index;
+        my @blank = ("\n");
+        my @convert = (@anchor, @blank, @reindex);
+
+        my @cut_tail_blank;
+        for my $cut_tail_blank (@convert) {
+            if ($cut_tail_blank =~ s/[ \t]*$//g) {
+                push @cut_tail_blank, "$cut_tail_blank";
+            } else {
+                push @cut_tail_blank, "$cut_tail_blank";
+            }
+        }
+
+        my @replace_blank;
+        for my $replace_blank (@cut_tail_blank) {
+            if ($replace_blank =~ s/　/ /g) {
+                push @replace_blank, "$replace_blank";
+            } else {
+                push @replace_blank, "$replace_blank";
+            }
+        }
+
+        my @re_date;
+        my $ymd = 'ymd';
+        for my $re_date (@replace_blank) {
+            if ($re_date =~ /\# (\d{4})[\/-](\d\d?)[\/-](\d\d?)(.*)/) {
+                $ymd = "$1-$2-$3";
+                push @re_date, $re_date;
+            } elsif ($re_date =~ /^\* (\d\d:\d\d)[ \t](.*)$/) {
+                push @re_date, "* $ymd $1\t$2\n";
+            } else {
+                push @re_date, $re_date;
+            }
+        }
+
+        my @re_name;
+        for my $re_name (@re_date) {
+            if ($re_name =~ s/a name="(\d{4})\/(\d\d?)\/(\d\d?)"/a name="$1-$2-$3"/) {
+                push @re_name, $re_name;
+            } else {
+                push @re_name, $re_name;
+            }
+        }
+
+        return \@re_name;
     }
 }
 
 1;
-__END__
-
-

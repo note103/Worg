@@ -6,9 +6,11 @@ use Test::More;
 
 BEGIN { use_ok 'Worg'; }
 BEGIN { use_ok 'Worg::Chat'; }
-BEGIN { use_ok 'Worg::Pad'; }
-BEGIN { use_ok 'Worg::Tags'; }
 BEGIN { use_ok 'Worg::Common'; }
+BEGIN { use_ok 'Worg::Done'; }
+BEGIN { use_ok 'Worg::Rewrite'; }
+BEGIN { use_ok 'Worg::Slack'; }
+BEGIN { use_ok 'Worg::Tags'; }
 
 done_testing();
 

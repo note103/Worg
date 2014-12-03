@@ -5,22 +5,25 @@ use warnings;
 use lib 'lib';
 use Worg;
 use Worg::Chat;
-use Worg::Pad;
-use Worg::Log;
+use Worg::Done;
+use Worg::Slack;
+use Worg::Rewrite;
 use Worg::Tags;
 
-my $msg = "Input (p[ad]|c[hat]|l[og]|q[uit]).";
+my $msg = "Input (c[hat]|d[one]|s[lack]|r[ewrite]|q[uit]).";
 print "$msg\n";
 my $again = "\nAnything else?\n$msg\n";
 my $bar;
 while (my $in = <>) {
-    if ($in =~ /^(p|pad|c|chat|l|log)$/) {
+    if ($in =~ /^(c|chat|d|done|s|slack|r|rewrite)$/) {
         if ($1 =~ /^(c|chat)$/) {
             $bar = Worg::chat();
-        } elsif ($1 =~ /^(p|pad)$/) {
-            $bar = Worg::pad();
-        } elsif ($1 =~ /^(l|log)$/) {
-            $bar = Worg::log();
+        } elsif ($1 =~ /^(d|done)$/) {
+            $bar = Worg::done();
+        } elsif ($1 =~ /^(s|slack)$/) {
+            $bar = Worg::slack();
+        } elsif ($1 =~ /^(r|rewrite)$/) {
+            $bar = Worg::rewrite();
         }
         out();
         last;
@@ -38,7 +41,7 @@ sub out {
     for my $line (@$bar) {
         print $fh "$line";
     }
-    print $fh "<<--\n";
+    print $fh "\n<<--\n\n";
     print "done!!\n";
     close $fh;
 }

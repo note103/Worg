@@ -4,7 +4,7 @@ use warnings;
 use Worg::Tags;
 use Worg::Common;
 
-package Log {
+package Rewrite {
     sub run {
         my $in = shift;
         my (@dhmx, @tags, @people);
@@ -14,7 +14,7 @@ package Log {
         my $time_local = 'time';
         for my $dhm (@$in) {
             if ($dhm =~ /^(\# .+)$/) {
-                push @dhmx, "\n$dhm\n";
+                push @dhmx, "$dhm";
             } elsif ($dhm =~ /^\* (\d\d?:\d\d)\t\[([^\]]+)\](.+)$/) {
                 my ($t, $in_tags, $c) = ($1, $2, $3);
                 my $separate_tags;
@@ -29,13 +29,11 @@ package Log {
                 } else {
                     $separate_tags = "#$in_tags";
                 }
-                push @dhmx, "\t$t\t\t$separate_tags$c\n";
+                push @dhmx, "\t$t\t\t$separate_tags$c";
             } elsif ($dhm =~ /^\* (\d\d?:\d\d)\t(.+)$/) {
-                push @dhmx, "\t$1\t\t$2\n";
-            } elsif ($dhm =~ /^$/) {
-                push @dhmx, "";
+                push @dhmx, "\t$1\t\t$2";
             } else {
-                push @dhmx, "$dhm";
+                push @dhmx, $dhm;
             }
         }
         my $extract = Common::core(\@dhmx);
