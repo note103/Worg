@@ -102,7 +102,7 @@ package Common {
         }
         my @autolink;
         for my $autolink (@port) {
-            if ($autolink =~ s/([^\<\>"])((http:|https:)[^ \s]+)/$1<a href = "$2" target="_blank">$2<\/a>/g ) {
+            if ($autolink =~ s/([^\<\>"])((http:|https:)[^ \s]+)/$1<$2>/g ) {
                 push @autolink, "$autolink";
             } else {
                 push @autolink, "$autolink";
