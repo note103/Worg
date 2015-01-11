@@ -102,7 +102,7 @@ package Common {
         }
         my @autolink;
         for my $autolink (@port) {
-            if ($autolink =~ s/([^\<\>"])((http:|https:)[^ \s]+)/$1<$2>/g ) {
+            if ($autolink =~ s/([^\<\>"]?)((http:|https:)[^ \s]+)/$1<$2>/g ) {
                 push @autolink, "$autolink";
             } else {
                 push @autolink, "$autolink";
@@ -140,11 +140,8 @@ package Common {
 
         my @replace_blank;
         for my $replace_blank (@cut_tail_blank) {
-            if ($replace_blank =~ s/　/ /g) {
-                push @replace_blank, "$replace_blank";
-            } else {
-                push @replace_blank, "$replace_blank";
-            }
+            $replace_blank =~ s/　/ /g;
+            push @replace_blank, "$replace_blank";
         }
 
         my @re_date;
